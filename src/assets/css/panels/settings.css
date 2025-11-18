@@ -1,22 +1,36 @@
+/* ========================================================================= */
+/* SECCIÓN DE AJUSTES (SETTINGS) - Estética Moderna y Funcional */
+/* ========================================================================= */
 .settings .container {
     display: flex;
     height: 100%;
 }
 
+/* BARRA DE NAVEGACIÓN (NAV-SETTINGS) */
 .nav-settings {
     width: 20%;
     height: 100%;
-    background: var(--background);
+    /* Fondo con gradiente sutil y borde de separación */
+    background: linear-gradient(180deg, #1A1A2E 0%, #151525 100%); 
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    font-size: 2.5rem;
+    font-size: 2rem; /* Tamaño ajustado para ser más legible */
+    border-right: 1px solid rgba(138, 43, 226, 0.3);
 }
 
 .nav-settings p {
-    font-size: 60%;
+    /* Título "Settings" con gradiente de texto */
+    font-size: 100%;
     margin-top: 80px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    letter-spacing: 1px;
 }
 
 .nav-box {
@@ -26,26 +40,54 @@
     align-items: center;
 }
 
-.nav-box #save {
-    border: solid 4px var(--background-element);
-    margin: 3rem;
+.nav-settings-btn {
+    font-size: 0.9rem; /* Tamaño ajustado para ser más estándar */
+    font-weight: 600;
+    border: none; /* Quitamos el borde sólido original */
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    width: 80%;
+    text-align: center;
+    margin: 0.4rem 0;
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-text-light);
+    transition: all var(--transition-fast);
 }
 
-.nav-settings-btn {
-    font-size: 50%;
-    border: solid 4px var(--element-color);
-    padding: 5px 10px;
-    border-radius: 10px;
-    width: 70%;
-    text-align: center;
-    margin: 0.5rem 0;
-    cursor: pointer;
+.nav-settings-btn:not(#save):hover {
+    background: rgba(0, 191, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+    transform: translateX(5px);
 }
 
 .active-settings-BTN {
-    background: var(--element-color);
+    /* Estado activo con gradiente y brillo */
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--dark-color);
+    box-shadow: 0 0 15px var(--color-secondary);
+    font-weight: 700;
+    transform: translateX(0);
 }
 
+.nav-box #save {
+    /* Botón HOME/GUARDAR */
+    border: 2px solid var(--color-primary); /* Borde más fino */
+    background: transparent;
+    color: var(--color-primary);
+    margin: 3rem;
+    transition: all var(--transition-fast);
+    padding: 0.6rem 1rem;
+}
+
+.nav-box #save:hover {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 0 20px var(--color-primary);
+}
+
+
+/* PANELES DE CONFIGURACIÓN */
 .container-settings {
     position: absolute;
     display: flex;
@@ -56,19 +98,7 @@
     height: calc(100% - 26px);
     opacity: 0;
     pointer-events: none;
-
-}
-
-.settings-elements-box {
-    background: var(--background-element);
-    width: 80%;
-    border-radius: 10px;
-    padding: 1.5rem 2rem;
-    margin: 0.5rem;
-}
-
-.setting-text {
-    font-size: 0.8rem;
+    transition: opacity var(--transition-slow) ease; /* Transición de fade-in */
 }
 
 .active-container-settings {
@@ -81,35 +111,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    margin: 1.5rem 0;
-    padding: 0.5rem 2rem;
-    border-radius: 2rem;
+    font-size: 2.2rem;
+    margin: 2rem 0 1rem 0;
+    padding: 0.5rem 3rem;
+    border-radius: 12px;
     text-align: center;
-    background: var(--background-transparent);
-    color: var(--color);
+    /* Fondo semi-transparente con toque de brillo */
+    background: rgba(26, 26, 46, 0.8);
+    color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+    font-weight: 600;
+}
+
+.settings-elements-box {
+    background: var(--background-element);
+    width: 85%; /* Ligeramente más ancho */
+    border-radius: 10px;
+    padding: 2rem 3rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.setting-text {
+    font-size: 0.95rem;
+    color: rgba(240, 248, 255, 0.85);
+    line-height: 1.6;
 }
 
 .settings-elements {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.content-center {
-    justify-content: center;
-}
 
-.content-evenly {
-    justify-content: space-evenly;
-}
-
-/*******************************************************************************
- *                                                                             *
- * account tab                                                                 *
- *                                                                             *
- ******************************************************************************/
+/* SECCIÓN ACCOUNT (CUENTAS) - **FUNCIONALIDAD RESTAURADA** */
 .accounts-list {
     max-height: 90%;
     display: flex;
@@ -120,7 +158,7 @@
 
 .account {
     background: var(--background-element);
-    border: solid 4px var(--background-element);
+    border: 2px solid transparent; /* Más estético que el borde 4px */
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -128,90 +166,73 @@
     height: calc(100px - 8px);
     margin: 1rem;
     border-radius: 15px;
+    transition: all var(--transition-fast);
+    cursor: pointer; /* Importante para la funcionalidad */
 }
 
 .account-select {
-    border: solid 4px var(--element-color);
+    border: 2px solid var(--color-secondary); /* Borde de selección celeste */
+    box-shadow: 0 0 15px var(--color-secondary);
 }
 
 .accounts-list #add {
     justify-content: center;
     cursor: pointer;
+    border: 2px dashed rgba(138, 43, 226, 0.5); /* Borde punteado futurista */
 }
 
-.add-profile {
-    width: 70px;
-    height: 70px;
-    font-size: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
+.accounts-list #add:hover {
+    background: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    transform: scale(1.02);
 }
 
-.add-text-profile {
+/* Permitimos el click en el padre, pero el texto/icono no deben bloquearlo */
+.add-profile { pointer-events: none; }
+.add-text-profile { 
     font-size: 1.5rem;
-    pointer-events: none;
+    color: var(--color-primary);
+    pointer-events: none; 
 }
-
-.profile-image {
-    width: 70px;
-    height: 70px;
-    background: url(../../images/default/setve.png);
-    background-size: cover;
-    border-radius: 15px;
-    pointer-events: none;
-    image-rendering: pixelated;
+.profile-image { pointer-events: none; }
+.profile-infos { pointer-events: none; }
+.profile-pseudo { 
+    font-size: 1.6rem;
+    color: var(--color-secondary);
+    pointer-events: none; 
 }
-
-.profile-infos {
-    text-align: center;
-    width: 10rem;
-    pointer-events: none;
-
-}
-
-.profile-pseudo {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 1.5rem;
-    pointer-events: none;
-
-}
-
-.profile-uuid {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-
-}
+.profile-uuid { pointer-events: none; }
 
 .delete-profile {
     width: 70px;
     height: 70px;
-    background: var(--background-transparent);
+    background: rgba(255, 44, 44, 0.1); /* Fondo rojo muy suave */
     border-radius: 15px;
     font-size: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ff2c2c;
+    color: #ff6b6b; /* Rojo más suave */
     cursor: pointer;
+    pointer-events: auto; /* **MANTENER FUNCIONALIDAD** */
+    transition: all var(--transition-fast);
+}
+
+.delete-profile:hover {
+    background: #ff6b6b;
+    color: var(--color-text-light);
+    box-shadow: 0 0 15px #ff6b6b;
+    transform: scale(1.1);
 }
 
 .delete-profile-icon {
-    pointer-events: none;
+    pointer-events: none; /* Esto sí debe quedar, para que el click sea en el padre (.delete-profile) */
 }
 
-/*******************************************************************************
- *                                                                             *
- * java tab                                                                    *
- *                                                                             *
- ******************************************************************************/
 
-.memory-slider {
+/* JAVA TAB (RAM, Java Path) */
+
+.memory-slider { /* Estilos de barra de RAM */
     position: relative;
     margin: 0 1.5rem 0 0;
     height: 18px;
@@ -219,195 +240,172 @@
     user-select: none;
 }
 
-.slider-touch-left,
-.slider-touch-right {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    height: 18px;
-    width: 18px;
-    z-index: 2;
-}
-
 .slider-touch-left span,
 .slider-touch-right span {
-    display: block;
-    width: 20px;
-    height: 10px;
-    background: #bbb;
-    border: 4px solid var(--element-color);
-    transition: background-color .2s, border .2s;
-    border-radius: 18px;
-    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    background: var(--background-element);
+    border: 3px solid var(--color-primary);
+    border-radius: 50%;
+    cursor: grab;
+}
+.slider-touch-left:hover span,
+.slider-touch-right:hover span {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px var(--color-secondary);
 }
 
 .slider-touch-left span:after,
 .slider-touch-right span:after {
-    content: attr(value);
-    color: var(--element-color);
-    font: normal normal bold 12px/18px Poppins;
-    white-space: nowrap;
-    pointer-events: none;
-    position: absolute;
-    top: -20px;
-    left: 83%;
-    transform: translate(-50%);
+    color: var(--color-secondary);
+    top: -25px;
+    left: 50%;
 }
 
 .slider-line {
-    box-sizing: border-box;
-    position: absolute;
-    width: calc(100% - 18px);
-    left: 9px;
-    top: 7px;
-    height: 4px;
-    border-radius: 4px;
-    background-color: #f5f5f5;
-    transition: background-color .2s;
-    z-index: 0;
-    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .slider-line span {
-    display: block;
-    height: 100%;
-    width: 0%;
-    background: var(--element-color);
-    transition: background-color .2s;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
 }
 
 .ram-info-block {
-    font-size: 0.9rem;
-    color: var(--color);
+    font-size: 0.95rem;
+    color: var(--color-text-light);
 }
 
 .java-path-input-text {
-    background: var(--shadow);
-    border: none;
-    color: var(--color);
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-primary);
+    color: var(--color-text-light);
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
     width: 50%;
-}
-
-.java-path-input-file {
-    display: none;
-}
-
-.java-path-box {
-    display: flex;
-    align-items: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .java-path-btn {
-    padding: 0.3rem 1rem;
-    background: var(--element-color);
-    border-radius: 15px;
-    margin: 0 1rem;
-    cursor: pointer;
-}
-
-/*******************************************************************************
- *                                                                             *
- * resolution tab                                                              *
- *                                                                             *
- ******************************************************************************/
-.input-size-element {
-    display: flex;
-    align-items: center;
-}
-
-.input-resolution {
-    background: var(--shadow);
-    border: none;
-    color: var(--color);
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
-    text-align: center;
-    width: 6rem;
-}
-
-.size-cross {
+    padding: 0.7rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-radius: 8px;
     margin: 0 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-fast);
+}
+
+.java-path-btn:hover {
+    background: var(--color-secondary);
+    box-shadow: 0 0 15px var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+
+/* RESOLUTION TAB */
+.input-resolution {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-primary);
+    color: var(--color-secondary);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    width: 5rem;
+    font-size: 1.1rem;
 }
 
 .size-cross:before {
-    font: normal normal bold 20px Icons;
-    content: "\e90e";
+    color: var(--color-text-light);
 }
 
-.size-btn {
-    padding: 0.3rem 1rem;
-    background: var(--element-color);
-    border-radius: 15px;
-    margin: 0 1rem;
+.size-btn { /* Botón de Por Defecto */
+    padding: 0.7rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-radius: 8px;
+    margin: 0 1.5rem;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-fast);
 }
 
-/*******************************************************************************
- *                                                                             *
- * Launcher tab                                                                *
- *                                                                             *
- ******************************************************************************/
+.size-btn:hover {
+    background: var(--color-secondary);
+    box-shadow: 0 0 15px var(--color-secondary);
+    transform: translateY(-2px);
+}
 
+
+/* LAUNCHER TAB */
 .input-max-files {
-    background: var(--shadow);
-    border: none;
-    color: var(--color);
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
-    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-primary);
+    color: var(--color-secondary);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
     width: 4rem;
-    margin-right: 1rem;
 }
 
 .max-files-btn {
-    padding: 0.3rem 1rem;
-    background: var(--element-color);
-    border-radius: 15px;
-    margin: 0 1rem;
+    padding: 0.7rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-radius: 8px;
+    margin: 0 1.5rem;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.max-files-btn:hover {
+    background: var(--color-secondary);
+    box-shadow: 0 0 15px var(--color-secondary);
+    transform: translateY(-2px);
 }
 
 .theme-btn {
-    margin: 0 1rem;
-    padding: calc(0.1rem + 4px) calc(1.5rem + 4px);
-    border-radius: 15px;
-    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 1.8rem;
+    border: 2px solid transparent;
+}
+
+.active-theme {
+    border: 3px solid var(--color-secondary);
+    box-shadow: 0 0 15px var(--color-secondary);
+    transform: scale(1.05);
 }
 
 .theme-btn-clair {
     background: var(--light-color);
     color: var(--dark-color);
-    border: 2px solid var(--dark-color);
+    border-color: var(--light-color);
 }
-
 .theme-btn-sombre {
     background: var(--dark-color);
     color: var(--light-color);
-    border: 2px solid var(--color);
+    border-color: var(--dark-color);
 }
-
 .theme-btn-auto {
-    background: var(--background);
-    color: var(--color);
-    border: 2px solid var(--color);
+    background: linear-gradient(45deg, var(--dark-color), var(--light-color));
+    color: var(--color-text-light); 
+    border-color: var(--background);
 }
 
-.active-theme {
-    border: 4px solid var(--element-color);
-}
 
 .close-btn {
-    font-size: 0.95rem;
-    width: 200px;
-    text-align: center;
-    border: 4px solid var(--color);
-    border-radius: 15px;
-    padding: 1rem;
-    cursor: pointer;
+    border: 2px solid var(--color-primary);
+    background: var(--background-element);
+    color: var(--color-text-light);
+    border-radius: 10px;
+    transition: all var(--transition-fast);
 }
 
 .active-close {
-    border: 4px solid var(--element-color);
+    border: 3px solid var(--color-secondary);
+    background: rgba(0, 191, 255, 0.1);
+    font-weight: 600;
+    box-shadow: 0 0 15px var(--color-secondary);
 }

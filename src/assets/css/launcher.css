@@ -4,13 +4,17 @@
 @import 'panels/home.css';
 @import 'panels/settings.css';
 
+/* ========================================================================= */
+/* BASE BODY & ESTILOS GENERALES (Funcionalidad Intacta) */
+/* ========================================================================= */
 body {
     margin: 0;
     padding: 0;
     user-select: none;
-    color: var(--color);
+    color: var(--color-text-light); /* Usamos la variable clara */
+    background-color: var(--background); /* Aseguramos que el fondo base sea el oscuro */
     font-family: 'Poppins';
-    font-weight: bolder;
+    font-weight: 600; /* Bolder ajustado a 600 para un look más moderno */
 }
 
 img {
@@ -28,6 +32,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* Scrollbar Ajustes (Mantenemos la regla para ocultar la barra de desplazamiento) */
 .content-scroll {
     overflow: auto;
 }
@@ -36,6 +41,7 @@ input::-webkit-inner-spin-button {
     width: 0;
 }
 
+/* BARRA DE ARRASTRE (DRAGBAR) - (Funcionalidad Intacta) */
 .dragbar {
     position: fixed;
     top: 0px;
@@ -44,65 +50,73 @@ input::-webkit-inner-spin-button {
     height: 26px;
     -webkit-app-region: drag;
     z-index: 11;
+    /* Fondo semi-transparente para un look moderno */
+    background: rgba(30, 30, 50, 0.4); 
+    /* Sombra sutil para separar de la aplicación */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); 
 }
 
-.darwin .frame {
-    background: transparent;
-    position: fixed;
-    top: 0px;
-    z-index: 11;
-    -webkit-app-region: no-drag;
-    display: none;
-}
-
+/* ========================================================================= */
+/* BOTONES DE VENTANA (FRAME) - Estética Mejorada */
+/* ========================================================================= */
+.darwin .frame,
 .other .frame {
+    /* Mantenemos la transparencia y posición original */
     background: transparent;
     position: fixed;
     top: 0px;
-    right: 0px;
     z-index: 11;
     -webkit-app-region: no-drag;
-    display: none;
+    /* El display: none/block se deja al JS (frame.hide) */
 }
 
 .frame.hide {
     display: block;
 }
 
-.darwin .button-frame {
-    position: relative;
-    display: table-cell;
-    width: 20px;
-    height: 26px;
-    transition: color .2s, background-color .2s;
-}
-
+.darwin .button-frame,
 .other .button-frame {
     position: relative;
     display: table-cell;
-    width: 30px;
+    width: 30px; /* Unificamos el ancho */
     height: 26px;
-    transition: color .2s, background-color .2s;
-    color: black;
+    transition: all .2s ease-in-out;
+    color: var(--color-text-light); /* Color de icono más claro */
     cursor: pointer;
+    text-align: center;
 }
 
+/* Estilo del icono (General) */
 .button-frame:before {
     position: absolute;
     top: 6px;
-    left: 8px;
+    left: 8px; /* Ajustamos para centrar visualmente */
     width: 14px;
     height: 14px;
     font-size: 14px;
-    color: #f8f9f9;
+    color: var(--color-secondary); /* Iconos de color celeste */
+    text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
 }
 
-.darwin-icon-minimize,
-.darwin-icon-maximize,
-.darwin-icon-close {
-    position: relative;
+/* Efectos de Hover (Windows/Other) */
+.other .button-frame:hover {
+    background-color: rgba(138, 43, 226, 0.2); /* Fondo de hover morado suave */
 }
 
+.icon-close:hover {
+    /* Hover de cerrar en color rojo vibrante */
+    background: #e21212 !important; 
+    color: var(--color-text-light);
+}
+
+.icon-minimize:hover,
+.icon-restore-down:hover,
+.icon-maximize:hover {
+    /* Hover oscuro suave para otros botones */
+    background-color: rgba(25, 25, 45, 0.8);
+}
+
+/* Estilos de Botones de MacOS (Darwin) - Mantenemos los colores originales con un toque de glow */
 .darwin-icon-minimize:before,
 .darwin-icon-maximize:before,
 .darwin-icon-close:before {
@@ -112,54 +126,60 @@ input::-webkit-inner-spin-button {
     width: 12px;
     height: 12px;
     cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    transition: box-shadow .2s;
 }
 
 .darwin-icon-maximize:before {
-    background: #07d014;
+    background: #07d014; /* Verde */
 }
 
 .darwin-icon-minimize:before {
-    background: #ffbd2e;
+    background: #ffbd2e; /* Amarillo */
 }
 
 .darwin-icon-close:before {
-    background: #ff6047;
+    background: #ff6047; /* Rojo */
 }
 
-.icon-close:hover {
-    background: #e21212;
-}
-
-.icon-minimize:hover,
-.icon-restore-down:hover,
-.icon-maximize:hover {
-    background-color: #0000009d;
-}
-
+/* ========================================================================= */
+/* POPUP GLOBAL - Estética de Panel Flotante Luminoso */
+/* ========================================================================= */
 .popup {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 10;
-    display: none;
+    /* Aplicamos un fondo oscuro y blur al overlay */
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(5px);
+    display: none; /* Mantenemos el control de visibilidad en JS */
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .popup-tab {
-    width: 40%;
-    padding: 15px;
-    background: var(--background);
-    border-radius: 15px;
+    width: 45%; /* Ligeramente más grande */
+    padding: 30px; /* Más padding */
+    background: var(--background-element); /* Fondo de elemento oscuro */
+    border-radius: 20px;
     z-index: 10;
+    /* Efecto GLOW: Borde de luz suave morado y celeste */
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.6), 0 0 10px rgba(0, 191, 255, 0.4);
+    border: 1px solid var(--color-primary);
+    transition: all var(--transition-fast);
 }
 
 .popup-title {
     text-align: center;
-    font-size: 2rem;
-    border-bottom: solid 4px var(--color);
-    margin-bottom: 1rem;
+    font-size: 2.2rem; /* Título más grande */
+    /* Línea de separación con gradiente y glow */
+    border-bottom: solid 3px var(--color-secondary);
+    box-shadow: 0 3px 5px rgba(0, 191, 255, 0.2);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    color: var(--color-secondary);
 }
 
 .popup-options {
@@ -168,17 +188,45 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
 }
 
+/* Botones dentro del Popup (Confirmar/Cancelar) */
 .popup-button {
-    background: none;
-    color: var(--color);
-    border: solid 4px var(--element-color);
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.7rem 3.5rem;
     border-radius: 10px;
-    padding: 0.3rem 4rem;
-    font-size: inherit;
-    font-weight: bold;
     margin: 15px 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-fast);
 }
 
+/* Estilo para el botón de acción principal (e.g., Confirmar) */
+.popup-button:nth-child(even) { /* Si es el segundo o principal */
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    color: var(--dark-color);
+}
+.popup-button:nth-child(even):hover {
+    box-shadow: 0 0 25px var(--color-secondary);
+    transform: translateY(-3px);
+}
+
+/* Estilo para el botón secundario (e.g., Cancelar) */
+.popup-button:nth-child(odd) { 
+    background: var(--background-element);
+    color: var(--color-secondary);
+    border: 2px solid var(--color-secondary);
+}
+.popup-button:nth-child(odd):hover {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px var(--color-primary);
+    transform: translateY(-3px);
+}
+
+
+/* PANELES DE CONTENIDO (LOGIN, HOME, SETTINGS) - (Funcionalidad Intacta) */
 .panel {
     position: absolute;
     width: 100%;
@@ -186,6 +234,7 @@ input::-webkit-inner-spin-button {
     opacity: 0;
     z-index: 0;
     pointer-events: none;
+    transition: opacity 0.5s ease-out; /* Suavizamos el cambio de panel */
 }
 
 .active {

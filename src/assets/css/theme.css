@@ -1,24 +1,67 @@
-.global {
-    --element-color: #00bd7a;
+/* ========================================================================= */
+/* VARIABLES GLOBALES - TEMAS FRÍOS Y FUTURISTAS */
+/* ========================================================================= */
+
+/* Nota: Estas variables deben estar en el :root en tu archivo global.css */
+:root {
+    /* Paleta Fría (Azul/Morado/Celeste) */
+    --color-primary: #8A2BE2; /* Azul violeta / Morado principal */
+    --color-secondary: #00BFFF; /* Azul cielo / Celeste */
+
+    /* Colores base (se usarán como fallback o en .global) */
+    --element-color: var(--color-secondary); /* Elementos interactivos por defecto */
     --transition: all 0.5s cubic-bezier(1, 0.46, 0, 1.29);
-    --dark-color: #292929;
-    --light-color: rgb(245, 245, 245);
+
+    /* Colores base para la transición de temas */
+    --dark-color: #1A1A2E; /* Fondo oscuro principal */
+    --light-color: rgb(245, 245, 245); /* Fondo claro principal */
+    
+    /* Variables de Texto */
+    --color-text-light: #F0F8FF; /* Blanco azulado para texto claro */
+    --color-text-dark: #151515; /* Negro para texto oscuro */
 }
 
+
+/* ========================================================================= */
+/* MODO OSCURO (DARK MODE) - Profundo y Brillante */
+/* ========================================================================= */
 .dark {
-    --color: #F5F5F5;
-    --background: #292929;
-    --background-element: #424242;
-    --background-transparent: #2c2c2ccc;
-    --shadow: rgba(25, 25, 25, 0.7);
-    --svg-color: brightness(0) saturate(100%) invert(100%) sepia(55%) saturate(23%) hue-rotate(236deg) brightness(108%) contrast(92%);
+    /* Colores de texto/primer plano */
+    --color: var(--color-text-light); 
+    
+    /* Fondos Oscuros de la estética futurista */
+    --background: var(--dark-color); /* #1A1A2E */
+    --background-element: #2C2C4A; /* Elementos ligeramente más claros, morado oscuro */
+    --background-transparent: rgba(26, 26, 46, 0.7); /* Transparencia para blur */
+
+    /* El elemento interactivo principal es el Celeste */
+    --element-color: var(--color-secondary); 
+    
+    /* Sombra oscura para dar profundidad */
+    --shadow: rgba(0, 0, 0, 0.6); 
+    
+    /* Filtro para iconos (iconos blancos con tinte azul/morado) */
+    --svg-color: brightness(0) saturate(100%) invert(80%) sepia(20%) saturate(600%) hue-rotate(200deg) brightness(100%) contrast(100%);
 }
 
+/* ========================================================================= */
+/* MODO CLARO (LIGHT MODE) - Limpio y Contrasta con el Azul */
+/* ========================================================================= */
 .light {
-    --color: #151515;
-    --background: rgb(245, 245, 245);
-    --background-element: #c2c2c2;
-    --background-transparent: rgba(204, 204, 204, 0.8);
-    --shadow: rgba(208, 208, 208, 0.7);
-    --svg-color: brightness(0) saturate(100%) invert(0%) sepia(5%) saturate(1719%) hue-rotate(357deg) brightness(94%) contrast(84%);
+    /* Colores de texto/primer plano */
+    --color: var(--color-text-dark); /* Texto negro */
+    
+    /* Fondos Claros */
+    --background: var(--light-color); /* Fondo blanco/claro */
+    --background-element: #E0E0FF; /* Elementos ligeramente azules claros (menos duros) */
+    --background-transparent: rgba(224, 224, 255, 0.8); /* Transparencia azul claro */
+
+    /* El elemento interactivo principal sigue siendo el Celeste (pero con más contraste) */
+    --element-color: var(--color-secondary); 
+    
+    /* Sombra clara para suavizar */
+    --shadow: rgba(180, 180, 200, 0.7); 
+    
+    /* Filtro para iconos (iconos oscuros) */
+    --svg-color: brightness(0) saturate(100%) invert(8%) sepia(50%) saturate(1000%) hue-rotate(200deg) brightness(90%) contrast(100%);
 }

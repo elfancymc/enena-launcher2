@@ -1,212 +1,297 @@
+/* ========================================================================= */
+/* VARIABLES DE COLOR MEJORADAS */
+/* ========================================================================= */
+:root {
+    /* Nuevos colores fríos y luminosos */
+    --color-primary: #8A2BE2; /* Azul violeta / Morado principal */
+    --color-secondary: #00BFFF; /* Azul cielo / Celeste */
+    --color-text-light: #F0F8FF; /* Blanco azulado para texto */
+    --color-text-dark: #2C3E50; /* Gris oscuro para contraste */
+
+    /* Fondo principal: más oscuro para que resalten las luces */
+    --background: #1A1A2E; 
+    /* Fondo transparente con un toque de azul oscuro */
+    --background-transparent: rgba(26, 26, 46, 0.7);
+    /* Color de los elementos interactivos, ahora un gradiente suave */
+    --element-color: var(--color-secondary); 
+    
+    /* Nueva sombra de brillo para los efectos "Glow" */
+    --glow-shadow-soft: 0 0 10px rgba(138, 43, 226, 0.6), 0 0 20px rgba(0, 191, 255, 0.4);
+    --glow-shadow-intense: 0 0 15px var(--color-secondary), 0 0 30px var(--color-primary);
+    
+    --transition-fast: 0.3s ease-in-out;
+    --transition-slow: 0.5s ease;
+}
+
+/* ========================================================================= */
+/* ESTRUCTURA BASE Y CONTENEDOR */
+/* ========================================================================= */
 .home .container {
     display: flex;
     height: 100%;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between; /* Para empujar el sidebar abajo */
+    /* Fondo con un sutil gradiente radial para profundidad */
+    background: radial-gradient(circle at center, #1B1E38 0%, #0F121C 100%);
+    padding: 0; /* Aseguramos que no haya padding extra */
 }
 
-/*******************************************************************************
- *                                                                             *
- * Status server                                                               *
- *                                                                             *
- ******************************************************************************/
+/* ========================================================================= */
+/* TOP SECTION (Contenedor principal de Status, Noticias y Social) */
+/* ========================================================================= */
+.top-section {
+    width: 100%;
+    height: calc(100% - 90px); /* Restamos la altura del sidebar */
+    display: flex;
+    padding: 2rem 1rem 0 1rem; /* Padding superior para el status-server */
+    box-sizing: border-box;
+}
+
+.main-content-top {
+    display: flex;
+    flex-direction: column;
+    width: 85%; /* Espacio para las noticias */
+    padding-right: 1.5rem;
+}
+
+/* ========================================================================= */
+/* STATUS SERVER (Barra de estado superior) */
+/* ========================================================================= */
 
 .status-server {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--background);
-    width: 25rem;
-    height: 3rem;
-    color: var(--color);
-    border-radius: 10px;
-    margin-top: 3rem;
-    padding: 1rem;
+    /* Cambio: color de fondo más suave y semi-transparente */
+    background: var(--background-transparent);
+    width: 28rem; /* Ligeramente más ancho */
+    height: 4rem; /* Ligeramente más alto */
+    color: var(--color-text-light);
+    border-radius: 12px;
+    margin-bottom: 2rem; /* Separación de las noticias */
+    padding: 1rem 1.5rem; /* Más padding horizontal */
     text-align: center;
+    /* Efecto Glow sutil en el borde */
+    box-shadow: var(--glow-shadow-soft);
+    border: 1px solid var(--color-primary); /* Borde sutil para definir */
 }
 
 .server-status-icon {
-    height: 3.3rem;
+    height: 4rem; /* Icono más grande */
+    filter: drop-shadow(0 0 5px var(--color-secondary)); /* Sombra para el icono */
 }
 
 .server-status-name {
-    font-size: 1.5rem;
-    color: var(--color);
+    font-size: 1.8rem;
+    color: var(--color-text-light);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .server-status-text {
-    font-size: 0.6rem;
-    color: #1AC707;
+    font-size: 0.8rem;
+    color: #38CC77; /* Verde más vibrante para el estado "operacional" */
+    transition: var(--transition-fast);
 }
 
 .server-status-infos .red {
-    color: #FF0409;
+    color: #FF6B6B; /* Rojo más suave para el estado "offline" */
 }
 
 .status-player-count {
-    background: var(--shadow);
-    min-width: 3rem;
-    height: 3rem;
-    border-radius: 10px;
+    /* Eliminamos el color de fondo para integrar mejor el número */
+    background: none; 
+    min-width: 4rem; 
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player-count {
-    font-size: 1.5rem;
-    margin: 0.4rem 0.5rem;
+    font-size: 2rem;
+    font-weight: 800;
+    /* Sombra de texto para hacerlo parecer luminoso */
+    text-shadow: 0 0 5px var(--color-secondary);
 }
 
+/* Indicador de estado como un punto de luz */
 .status-player-count:after {
     position: absolute;
     content: '';
-    width: 10px;
-    height: 10px;
-    top: 10px;
-    right: 10px;
-    border-radius: 15px;
-    border: solid 5px var(--background);
-    background: #1AC707;
+    width: 12px;
+    height: 12px;
+    top: -5px; /* Lo movemos fuera del elemento para que sea una luz superior */
+    right: 5px;
+    border-radius: 50%; /* Cambiado a 50% para un círculo perfecto */
+    border: none;
+    background: #38CC77;
+    /* Sombra intensa para simular un LED encendido */
+    box-shadow: 0 0 8px #38CC77, 0 0 15px #38CC77;
+    transition: var(--transition-fast);
 }
 
 .red:after {
-    background: #FF0409;
+    background: #FF6B6B;
+    box-shadow: 0 0 8px #FF6B6B, 0 0 15px #FF6B6B;
 }
 
-.home-bottom {
-    position: relative;
-    width: 100%;
-    height: calc(100% - 80px - 8rem);
-    display: flex;
-}
+/* ========================================================================= */
+/* NEWS (Noticias) */
+/* ========================================================================= */
 
-/*******************************************************************************
- *                                                                             *
- * news server                                                                 *
- *                                                                             *
- ******************************************************************************/
-
-.new-tab {
+.news-box {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%; /* Ocupa el espacio restante en main-content-top */
     align-items: center;
-    width: 85%;
-    height: 100%;
 }
 
 .titre-tab-new {
-    margin-top: 1rem;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    background: var(--background-transparent);
-    color: var(--color);
+    margin: 0 0 1rem 0;
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    /* Gradiente de texto */
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    padding: 0;
 }
 
 .news-list {
-    width: 90%;
-    height: 100%;
-    border-radius: 10px;
-    margin: 1rem 0;
+    width: 100%; /* Ajustado al 100% del contenedor news-box */
+    max-height: 100%; /* Aseguramos que pueda hacer scroll */
+    overflow-y: auto;
+    border-radius: 12px;
+    margin: 0;
+    padding-right: 5px; /* Espacio para la barra de scroll */
 }
 
 .news-block {
     width: 100%;
-    margin: 0 0 1rem 0;
-    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
     background: var(--background-transparent);
+    border: 1px solid rgba(138, 43, 226, 0.3); /* Borde suave */
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Efecto hover con brillo */
+.news-block:hover {
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+    transform: translateY(-3px);
 }
 
 .news-header {
     display: flex;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 1.8rem 0.5rem 1.8rem;
     align-items: center;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.5); /* Separador sutil */
 }
 
 .header-text .title {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-size: 1.2rem;
-    text-align: center;
+    text-decoration: none; /* Quitamos el subrayado feo */
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-secondary);
 }
 
 .news-header .date {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end; /* Alineación a la derecha */
+    font-size: 0.9rem;
+    color: rgba(240, 248, 255, 0.7);
 }
 
 .news-content .bbWrapper {
-    padding: 0 1.5rem;
-    padding-bottom: 1rem;
-    font-size: 1.2rem;
-
+    padding: 1rem 1.8rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .news-content .bbWrapper p {
-    font-weight: 100;
+    font-weight: 300;
     margin: 0;
-
+    color: var(--color-text-light);
 }
 
 .news-content .bbWrapper .news-author {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: end;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    color: rgba(240, 248, 255, 0.6);
 }
 
 .news-content .bbWrapper .news-author span {
     font-weight: 700;
+    color: var(--color-primary);
 }
 
-/*******************************************************************************
- *                                                                             *
- * social server                                                               *
- *                                                                             *
- ******************************************************************************/
+/* ========================================================================= */
+/* SOCIAL (Barra lateral de iconos) */
+/* ========================================================================= */
 
-.social-tab {
-    position: absolute;
-    display: flex;
-    bottom: 0;
-    right: 0;
+.social {
     width: 15%;
-    height: calc(80% - 1rem);
+    display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
 }
 
 .social-list {
-    border-radius: 10px;
+    border-radius: 12px;
     height: 100%;
+    padding-top: 5rem; /* Ajustado para alinear con el inicio de las noticias */
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
 .social-block {
     display: flex;
-    background: var(--background-transparent);
-    width: 90px;
-    height: 90px;
-    margin-bottom: 1rem;
-    border-radius: 10px;
+    /* Gradiente sutil como fondo */
+    background: linear-gradient(145deg, rgba(30, 30, 50, 0.8), rgba(15, 15, 30, 0.8));
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    border-radius: 15px; /* Más redondeado */
     font-size: 2rem;
     cursor: pointer;
     align-items: center;
     justify-content: center;
+    /* Sombra y transición para el efecto "fade" y luz */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-fast);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.social-block:hover {
+    /* Efecto de luz intensa y elevación */
+    background: linear-gradient(145deg, rgba(50, 50, 70, 0.9), rgba(25, 25, 45, 0.9));
+    box-shadow: 0 0 20px var(--color-secondary), 0 0 10px var(--color-primary);
+    transform: scale(1.05);
 }
 
 .social-block .icon-social {
     pointer-events: none;
     background-repeat: no-repeat;
-    height: 55%;
-    width: 55%;
-    filter: var(--svg-color);
+    height: 60%;
+    width: 60%;
+    /* Ajustamos el filtro para que los íconos sean celestes/blancos */
+    filter: invert(70%) sepia(90%) saturate(1500%) hue-rotate(180deg) brightness(120%) contrast(100%);
+    transition: filter var(--transition-fast);
 }
 
-/*******************************************************************************
- *                                                                             *
- * sidebar                                                                     *
- *                                                                             *
- ******************************************************************************/
+/* ========================================================================= */
+/* SIDEBAR (Barra inferior de Jugar/Ajustes) */
+/* ========================================================================= */
 
 .sidebar {
     display: flex;
@@ -214,39 +299,45 @@
     align-items: center;
     width: 100%;
     height: 90px;
-    background: var(--background-transparent);
+    /* Fondo con gradiente y efecto de cristal esmerilado */
+    background: rgba(30, 30, 50, 0.6);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(138, 43, 226, 0.4);
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    /* Asegura que la barra esté siempre abajo */
+    position: relative; 
+    bottom: 0;
 }
 
 .player-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 15px;
-    height: 3rem;
-    margin: 0 1.5rem;
+    height: 3.5rem; /* Más grande */
+    border-radius: 10px;
+    transition: var(--transition-fast);
 }
 
 .player-head {
-    background: url('../../images/default/setve.png'), no-repeat;
-    background-size: cover;
+    /* Mantener el diseño del head pero con un borde que brilla al pasar el ratón */
+    background: url('../../images/default/steve.png') no-repeat center/cover;
     image-rendering: pixelated;
-    transition: var(--transition);
-    height: 3rem;
-    width: 3rem;
-    pointer-events: none;
-    border-radius: 15px;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    transition: var(--transition-fast), border-color var(--transition-fast);
 }
 
-.player-menu {
-    color: var(--element-color);
-    transform: rotate(270deg);
-    pointer-events: none;
+.player-options:hover .player-head {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 
 .play-elements {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px; /* Separación entre el botón principal y la info */
 }
 
 .play-instance {
@@ -254,125 +345,219 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border: solid 3px var(--element-color);
+    /* Redefinimos el borde y el fondo para el efecto de botón moderno */
+    border: none;
     border-radius: 15px;
-    height: 3.2rem;
-    padding-right: 1.9rem;
+    height: 3.5rem;
+    /* Usamos un gradiente como fondo para el botón compuesto */
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary) 80%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: var(--transition-fast);
+    padding-right: 0; /* Lo gestionaremos con el .instance-select */
+}
+
+.play-instance:hover {
+    /* Ligero cambio de gradiente y sombra al pasar el ratón */
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary) 90%);
+    box-shadow: 0 5px 20px var(--color-secondary);
+    transform: translateY(-2px);
 }
 
 .play-btn {
     border: none;
-    border-radius: 10px;
+    border-radius: 15px 0 0 15px; /* Bordes redondeados solo a la izquierda */
     background: none;
-    color: var(--color);
-    font-size: 2rem;
-    font-weight: bolder;
-    padding: 0 1.5rem;
-    pointer-events: none;
+    color: var(--color-text-light);
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 0 2rem;
+    cursor: pointer; /* Lo hacemos clickeable */
+    height: 100%;
+    transition: var(--transition-fast);
 }
 
 .instance-select {
     display: flex;
     align-items: center;
-    position: absolute;
-    right: -3;
-    top: -2;
-    color: var(--element-color);
+    position: relative;
+    right: 0;
+    top: 0;
+    color: var(--color-text-light);
     font-size: 1rem;
-    height: calc(100% - 1px);
-    border: solid 3px var(--element-color);
-    text-align: center;
-    border-radius: 15px;
-    padding: 0 0.5rem;
+    height: 100%;
+    /* Separador sutil con un fondo más oscuro */
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: 0 15px 15px 0; /* Bordes redondeados solo a la derecha */
+    padding: 0 1rem;
     cursor: pointer;
+    border: none; /* Quitamos el borde redundante */
+    transition: background var(--transition-fast);
+}
+
+.instance-select:hover {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .instance-select:before {
+    /* Asumiendo que icon-arrow es un pseudo-elemento de flecha */
     transform: rotate(270deg);
     pointer-events: none;
+    color: var(--color-text-light);
+    font-size: 1.2rem;
 }
 
+/* Indicador de carga y barra de progreso */
 .info-starting-game {
     display: none;
     text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.info-starting-game-text {
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-bottom: 5px;
 }
 
 .progress-bar {
     appearance: none;
-    height: 10px;
-    margin: 0.5rem 0;
+    height: 8px;
+    width: 150px;
+    margin: 0;
+    border: none;
 }
 
 .progress-bar::-webkit-progress-bar {
-    background-color: var(--background);
-    border: solid 1px var(--element-color);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
 }
 
 .progress-bar::-webkit-progress-value {
-    background-color: var(--element-color);
+    /* Gradiente en la barra de progreso */
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
     border-radius: 10px;
+    transition: width 0.4s ease;
 }
 
+
+/* Botón de Ajustes (Settings) */
 .settings-btn {
-    width: 3rem;
-    height: 3rem;
-    font-size: 3rem;
-    color: var(--element-color);
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 2rem;
+    /* Usamos el color primario para el icono y agregamos un hover */
+    color: var(--color-primary); 
     margin: 0 1.5rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.settings-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+    text-shadow: 0 0 10px var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* ========================================================================= */
+/* INSTANCE POPUP (Selector de versión) */
+/* ========================================================================= */
 
 .instance-popup {
     position: absolute;
+    top: 0;
+    left: 0;
     display: none;
     width: 100%;
     height: 100%;
-    background: #000000b3;
-    z-index: 10;
+    /* Fondo oscuro con mucha transparencia para el efecto "fade" */
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(8px);
+    z-index: 100; /* Aseguramos que esté por encima de todo */
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    opacity: 0; /* Inicialmente oculto para el fade-in */
+    transition: opacity var(--transition-slow);
 }
 
-.instances-tab {
+.instance-popup-container { /* Clase corregida */
     position: relative;
     background: var(--background);
-    border-radius: 10px;
-    padding: 1rem 3rem;
+    border-radius: 15px;
+    padding: 2rem 4rem;
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.7); /* Sombra intensa de luz morada */
+    transform: scale(0.95); /* Inicialmente más pequeño para el efecto de aparición */
+    transition: transform var(--transition-slow);
+}
+
+/* Clase para mostrar el popup con el efecto de fade-in/zoom */
+.instance-popup.visible { 
+    opacity: 1;
+    transform: scale(1);
 }
 
 .close-popup {
     position: absolute;
     display: flex;
-    top: 10px;
-    right: 10px;
-    background: var(--shadow);
-    height: 30px;
-    width: 30px;
-    border-radius: 10px;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
 }
 
-.instances-tab p {
-    margin-top: 1.5rem;
-    font-size: 2rem;
+.close-popup:hover {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    transform: rotate(90deg);
+}
+
+.instance-popup-container p {
+    margin: 0 0 1.5rem 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    text-shadow: 0 0 5px var(--color-secondary);
 }
 
 .instance-elements {
-    background: var(--background-element);
+    background: rgba(150, 150, 200, 0.1);
+    color: var(--color-text-light);
     text-align: center;
-    border-radius: 10px;
-    margin: 0.5rem 0;
-    font-size: 1.5rem;
+    border-radius: 8px;
+    margin: 0.8rem 0;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
     cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--transition-fast);
 }
 
 .instance-elements:hover {
-    background: var(--element-color);
+    /* Inversión de colores y más brillo */
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+    border-color: var(--color-secondary);
 }
 
 .active-instance {
-    background: var(--element-color);
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.7);
+    border-color: var(--color-primary);
 }

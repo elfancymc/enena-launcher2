@@ -32,8 +32,12 @@ class Login {
         let popupLogin = new popup();
         let loginHome = document.querySelector('.login-home');
         let microsoftBtn = document.querySelector('.connect-home');
+        let crackBtn = document.querySelector('.connect-crack');
         loginHome.style.display = 'block';
 
+        crackBtn.addEventListener("click", () => {
+            this.getCrack();
+        });
         microsoftBtn.addEventListener("click", () => {
             popupLogin.openPopup({
                 title: 'Connexion',
