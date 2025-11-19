@@ -2,7 +2,7 @@
     "name": "Enena-Launcher",
     "preductname": "Enena Launcher",
     "version": "2.1.3",
-    "description": "Launcher Mincraft pour le serveur Selvania",
+    "description": "Launcher deenena",
     "main": "src/app.js",
     "author": {
         "name": "elfancymc, Inc.",
