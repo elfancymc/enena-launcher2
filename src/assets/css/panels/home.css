@@ -9,9 +9,9 @@
     --color-text-dark: #2C3E50; /* Gris oscuro para contraste */
 
     /* Fondo principal: más oscuro para que resalten las luces */
-    --background: #1A1A2E; 
+    --background: #1a1a2e00; 
     /* Fondo transparente con un toque de azul oscuro */
-    --background-transparent: rgba(26, 26, 46, 0.7);
+    --background-transparent: rgba(26, 26, 46, 0);
     /* Color de los elementos interactivos, ahora un gradiente suave */
     --element-color: var(--color-secondary); 
     
@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: space-between; /* Para empujar el sidebar abajo */
     /* Fondo con un sutil gradiente radial para profundidad */
-    background: radial-gradient(circle at center, #1B1E38 0%, #0F121C 100%);
+    background: radial-gradient(circle at center, #1b1e3800 0%, #0f121c00 100%);
     padding: 0; /* Aseguramos que no haya padding extra */
 }
 
@@ -395,7 +395,7 @@
 }
 
 .instance-select:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.589);
 }
 
 .instance-select:before {

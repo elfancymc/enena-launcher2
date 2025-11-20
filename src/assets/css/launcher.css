@@ -51,9 +51,9 @@ input::-webkit-inner-spin-button {
     -webkit-app-region: drag;
     z-index: 11;
     /* Fondo semi-transparente para un look moderno */
-    background: rgba(30, 30, 50, 0.4); 
+    background: rgba(30, 30, 50, 0); 
     /* Sombra sutil para separar de la aplicación */
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0); 
 }
 
 /* ========================================================================= */

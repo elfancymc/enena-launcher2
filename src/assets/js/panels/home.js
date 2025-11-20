@@ -9,6 +9,7 @@ const { shell, ipcRenderer } = require('electron')
 
 class Home {
     static id = "home";
+    musicStarted = false; // AÑADIDO: Para rastrear si la música ya se inició
 
     async init(config) {
         this.config = config;
@@ -79,8 +80,49 @@ class Home {
                 }
             });
         });
+
+        // =================================================================
+        // AÑADIDO: Inicializar y manejar la reproducción de la música de fondo
+        // =================================================================
+        this.initMusicPlayer();
     }
     
+    // =========================================================================
+    // NUEVO MÉTODO AÑADIDO PARA LA MÚSICA DE FONDO 🎵
+    // =========================================================================
+    initMusicPlayer() {
+        const backgroundMusic = document.getElementById('background-music');
+
+        if (!backgroundMusic) {
+            console.warn('Audio element with ID "background-music" not found.');
+            return;
+        }
+
+        // Función para intentar iniciar la reproducción
+        const startMusic = () => {
+            if (this.musicStarted) return;
+            
+            backgroundMusic.volume = 0.1; // Ajusta el volumen (0.0 a 1.0)
+            
+            backgroundMusic.play().then(() => {
+                this.musicStarted = true;
+                console.log('Música de fondo iniciada por interacción del usuario.');
+                // Quitar los listeners después de la primera reproducción exitosa
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('keydown', startMusic);
+            }).catch(error => {
+                // Si falla (ej: sin interacción del usuario), se maneja en el listener.
+                console.debug('La reproducción automática fue bloqueada. Esperando interacción...');
+            });
+        };
+
+        // Agregar listeners para el primer evento de interacción del usuario (clic o tecla)
+        // Usamos { once: true } para que solo se active una vez
+        document.addEventListener('click', startMusic, { once: true });
+        document.addEventListener('keydown', startMusic, { once: true });
+    }
+    // =========================================================================
+
     // =========================================================================
     // NUEVO MÉTODO PARA MANEJAR EVENTOS DEL POPUP DE LOGIN (CSP FIX)
     // =========================================================================
@@ -183,7 +225,7 @@ class Home {
                     <div class="news-content">
                         <div class="bbWrapper">
                             <p>${News.content.replace(/\n/g, '</br>')}</p>
-                            <p class="news-author">Auteur - <span>${News.author}</span></p>
+                            <p class="news-author">Autor - <span>${News.author}</span></p>
                         </div>
                     </div>`
                 newsElement.appendChild(blockNews);
@@ -370,9 +412,9 @@ class Home {
                 
                 // Muestra el popup de login
                 popupError.openPopup({
-                    title: 'Veuillez vous identifier afin de jouer.',
+                    title: 'inicia sesion para jugar',
                     content: `<button class="btn-connexion" data-panel="login">Connexion</button>
-                              <button class="btn-offline" data-panel="login">No premium (offline mode)</button>`,
+                             <button class="btn-offline" data-panel="login">No premium (offline mode)</button>`,
                     color: 'var(--color-secondary)',
                     options: false 
                 });
@@ -455,7 +497,7 @@ class Home {
             // Update UI to show proper loading state
             if (progressBar) progressBar.style.display = "";
             ipcRenderer.send('main-window-progress-load');
-            if (infoStarting) infoStarting.innerHTML = `Vérification`; // Estado inicial de verificación/descarga
+            if (infoStarting) infoStarting.innerHTML = `Verificando`; // Estado inicial de verificación/descarga
 
             launch.on('extract', extract => {
                 ipcRenderer.send('main-window-progress-load');
@@ -463,7 +505,7 @@ class Home {
             });
 
             launch.on('progress', (progress, size) => {
-                if (infoStarting) infoStarting.innerHTML = `Téléchargement ${((progress / size) * 100).toFixed(0)}%`;
+                if (infoStarting) infoStarting.innerHTML = `Descargando ${((progress / size) * 100).toFixed(0)}%`;
                 ipcRenderer.send('main-window-progress', { progress, size });
                 if (progressBar) {
                     progressBar.value = progress;
@@ -472,7 +514,7 @@ class Home {
             });
 
             launch.on('check', (progress, size) => {
-                if (infoStarting) infoStarting.innerHTML = `Vérification ${((progress / size) * 100).toFixed(0)}%`;
+                if (infoStarting) infoStarting.innerHTML = `Vérificando ${((progress / size) * 100).toFixed(0)}%`;
                 ipcRenderer.send('main-window-progress', { progress, size });
                 if (progressBar) {
                     progressBar.value = progress;
@@ -494,7 +536,7 @@ class Home {
             launch.on('patch', patch => {
                 console.log(patch);
                 ipcRenderer.send('main-window-progress-load');
-                if (infoStarting) infoStarting.innerHTML = `Patch en cours...`;
+                if (infoStarting) infoStarting.innerHTML = `Parche en curso`;
             });
 
             launch.on('data', (e) => {
@@ -504,7 +546,7 @@ class Home {
                 };
                 new logger('Minecraft', '#36b030');
                 ipcRenderer.send('main-window-progress-load');
-                if (infoStarting) infoStarting.innerHTML = `Demarrage en cours...`;
+                if (infoStarting) infoStarting.innerHTML = `Iniciando Enena Chrismast`;
                 console.log(e);
             });
 
@@ -525,7 +567,7 @@ class Home {
 
                 popupError.openPopup({
                     title: 'Erreur',
-                    content: err.error || "Une erreur est survenue lors du lancement.",
+                    content: err.error || "Hay un error con el lanzamiento",
                     color: 'red',
                     options: true
                 });
@@ -555,7 +597,7 @@ class Home {
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
         let day = date.getDate();
-        let allMonth = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        let allMonth = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
         return { year: year, month: allMonth[month - 1], day: day };
     }
 }
