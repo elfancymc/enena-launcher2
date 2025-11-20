@@ -1,7 +1,7 @@
 {
     "name": "Enena-Launcher",
     "preductname": "Enena Launcher",
-    "version": "4.9.9",
+    "version": "4.8.9",
     "description": "launcher de enena",
     "main": "src/app.js",
     "author": {
