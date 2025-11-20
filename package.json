@@ -1,8 +1,8 @@
 {
     "name": "Enena-Launcher",
     "preductname": "Enena Launcher",
-    "version": "2.1.3",
-    "description": "Launcher deenena",
+    "version": "4.9.8",
+    "description": "launcher de enena",
     "main": "src/app.js",
     "author": {
         "name": "elfancymc, Inc.",
@@ -39,6 +39,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/elfancymc/enena-launcher2"
+        "url": "git+https://github.com/elfancymc/enena-launcher2.git"
     }
 }
