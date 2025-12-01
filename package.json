@@ -1,13 +1,13 @@
 {
-    "name": "Selvania-Launcher",
-    "preductname": "Selvania Launcher",
-    "version": "2.1.4",
-    "description": "Launcher Mincraft pour le serveur Selvania",
+    "name": "Enena-Launcher",
+    "preductname": "Enena Launcher",
+    "version": "0.0.9",
+    "description": "Launcher oficial de Enena Studios",
     "main": "src/app.js",
     "author": {
-        "name": "luuxis, Inc.",
-        "email": "contact@luuxis.fr",
-        "url": "https://github.com/luuxis"
+        "name": "ElFancyMC, Inc.",
+        "email": ".",
+        "url": "."
     },
     "url": "https://enenalauncher.wstr.fr/",
     "scripts": {
@@ -40,6 +40,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/luuxis/Selvania-Launcher.git"
+        "url": "git+https://github.com/elfancymc/enena-launcher2.git"
     }
 }
