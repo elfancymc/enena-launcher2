@@ -1,6 +1,6 @@
 /**
  * @author Luuxis
- * Luuxis License v1.0 (voir fichier LICENSE pour les détails en FR/EN)
+ * Luuxis License v1.0 (ver archivo LICENSE para los detalles en ES/EN)
  */
 const { AZauth, Mojang } = require('minecraft-java-core');
 const { ipcRenderer } = require('electron');
@@ -28,20 +28,21 @@ class Login {
     }
 
     async getMicrosoft() {
-        console.log('Initializing Microsoft login...');
+        console.log('Inicializando inicio de sesión de Microsoft...');
         let popupLogin = new popup();
         let loginHome = document.querySelector('.login-home');
         let microsoftBtn = document.querySelector('.connect-home');
-        let crackBtn = document.querySelector('.connect-crack');
+        let crackBtn = document.querySelector('.connect-crack')
         loginHome.style.display = 'block';
 
-        crackBtn.addEventListener("click", () => {
+        crackBtn,addEventListener("click", () => {
             this.getCrack();
         });
+
         microsoftBtn.addEventListener("click", () => {
             popupLogin.openPopup({
-                title: 'Connexion',
-                content: 'Veuillez patienter...',
+                title: 'Conexión',
+                content: 'Por favor, espere...',
                 color: 'var(--color)'
             });
 
@@ -56,7 +57,7 @@ class Login {
 
             }).catch(err => {
                 popupLogin.openPopup({
-                    title: 'Erreur',
+                    title: 'Error',
                     content: err,
                     options: true
                 });
@@ -65,7 +66,7 @@ class Login {
     }
 
     async getCrack() {
-        console.log('Initializing offline login...');
+        console.log('Inicializando inicio de sesión sin conexión...');
         let popupLogin = new popup();
         let loginOffline = document.querySelector('.login-offline');
 
@@ -76,8 +77,8 @@ class Login {
         connectOffline.addEventListener('click', async () => {
             if (emailOffline.value.length < 3) {
                 popupLogin.openPopup({
-                    title: 'Erreur',
-                    content: 'Votre pseudo doit faire au moins 3 caractères.',
+                    title: 'Error',
+                    content: 'Su apodo debe tener al menos 3 caracteres.',
                     options: true
                 });
                 return;
@@ -85,8 +86,8 @@ class Login {
 
             if (emailOffline.value.match(/ /g)) {
                 popupLogin.openPopup({
-                    title: 'Erreur',
-                    content: 'Votre pseudo ne doit pas contenir d\'espaces.',
+                    title: 'Error',
+                    content: 'Su apodo no debe contener espacios.',
                     options: true
                 });
                 return;
@@ -96,7 +97,7 @@ class Login {
 
             if (MojangConnect.error) {
                 popupLogin.openPopup({
-                    title: 'Erreur',
+                    title: 'Error',
                     content: MojangConnect.message,
                     options: true
                 });
@@ -108,7 +109,7 @@ class Login {
     }
 
     async getAZauth() {
-        console.log('Initializing AZauth login...');
+        console.log('Inicializando inicio de sesión de AZauth...');
         let AZauthClient = new AZauth(this.config.online);
         let PopupLogin = new popup();
         let loginAZauth = document.querySelector('.login-AZauth');
@@ -125,15 +126,15 @@ class Login {
 
         AZauthConnectBTN.addEventListener('click', async () => {
             PopupLogin.openPopup({
-                title: 'Connexion en cours...',
-                content: 'Veuillez patienter...',
+                title: 'Conectando...',
+                content: 'Por favor, espere...',
                 color: 'var(--color)'
             });
 
             if (AZauthEmail.value == '' || AZauthPassword.value == '') {
                 PopupLogin.openPopup({
-                    title: 'Erreur',
-                    content: 'Veuillez remplir tous les champs.',
+                    title: 'Error',
+                    content: 'Por favor, rellene todos los campos.',
                     options: true
                 });
                 return;
@@ -143,7 +144,7 @@ class Login {
 
             if (AZauthConnect.error) {
                 PopupLogin.openPopup({
-                    title: 'Erreur',
+                    title: 'Error',
                     content: AZauthConnect.message,
                     options: true
                 });
@@ -160,15 +161,15 @@ class Login {
 
                 connectAZauthA2F.addEventListener('click', async () => {
                     PopupLogin.openPopup({
-                        title: 'Connexion en cours...',
-                        content: 'Veuillez patienter...',
+                        title: 'Conectando...',
+                        content: 'Por favor, espere...',
                         color: 'var(--color)'
                     });
 
                     if (AZauthA2F.value == '') {
                         PopupLogin.openPopup({
-                            title: 'Erreur',
-                            content: 'Veuillez entrer le code A2F.',
+                            title: 'Error',
+                            content: 'Por favor, introduzca el código A2F.',
                             options: true
                         });
                         return;
@@ -178,7 +179,7 @@ class Login {
 
                     if (AZauthConnect.error) {
                         PopupLogin.openPopup({
-                            title: 'Erreur',
+                            title: 'Error',
                             content: AZauthConnect.message,
                             options: true
                         });
@@ -198,7 +199,7 @@ class Login {
     async saveData(connectionData) {
         let configClient = await this.db.readData('configClient');
         let account = await this.db.createData('accounts', connectionData)
-        let instanceSelect = configClient.instance_selct
+        let instanceSelect = configClient.instance_select
         let instancesList = await config.getInstanceList()
         configClient.account_selected = account.ID;
 
@@ -208,7 +209,7 @@ class Login {
                 if (whitelist !== account.name) {
                     if (instance.name == instanceSelect) {
                         let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
-                        configClient.instance_selct = newInstanceSelect.name
+                        configClient.instance_select = newInstanceSelect.name
                         await setStatus(newInstanceSelect.status)
                     }
                 }

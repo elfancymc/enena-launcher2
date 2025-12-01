@@ -19,7 +19,7 @@ const os = require('os');
 class Launcher {
     async init() {
         this.initLog();
-        console.log('Iniciando el launcher...');
+        console.log('Initializing Launcher...');
         this.shortcut()
         await setBackground()
         this.initFrame();
@@ -86,13 +86,13 @@ class Launcher {
     }
 
     async initConfigClient() {
-        console.log('Iniciando Config Client...')
+        console.log('Initializing Config Client...')
         let configClient = await this.db.readData('configClient')
 
         if (!configClient) {
             await this.db.createData('configClient', {
                 account_selected: null,
-                instance_selct: null,
+                instance_select: null,
                 java_config: {
                     java_path: null,
                     java_memory: {

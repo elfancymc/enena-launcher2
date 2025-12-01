@@ -1,15 +1,10 @@
 @import "font.css";
 @import 'theme.css';
 
-/* ========================================================================= */
-/* BASE / FONDO */
-/* ========================================================================= */
 body {
-    /* Fondo con gradiente sutil para profundidad (Asegura que --background es un color oscuro) */
-    background-color: radial-gradient(circle at center, #1B1E38 0%, #0F121C 100%); 
+    background-color: var(--background);
     font-family: "Poppins";
     letter-spacing: 0px;
-    color: var(--color-text-light); /* Aseguramos que el texto base sea claro */
 }
 
 img {
@@ -17,9 +12,6 @@ img {
     user-select: none;
 }
 
-/* ========================================================================= */
-/* SPLASH IMAGE / LOGO */
-/* ========================================================================= */
 .splash {
     position: absolute;
     top: 180px;
@@ -27,9 +19,7 @@ img {
     transform: translate(-50%);
     width: 140px;
     height: 140px;
-    /* Aplicamos un ligero brillo al logo */
-    filter: drop-shadow(0 0 10px var(--color-primary)); 
-    transition: opacity .6s, top 1.5s; /* Transiciones más suaves */
+    transition: opacity .3s, top 1.5s;
     opacity: 0;
 }
 
@@ -41,20 +31,16 @@ img {
     top: 129px;
 }
 
-/* ========================================================================= */
-/* MENSAJES DE CARGA (SPLASH MESSAGE / AUTHOR) */
-/* ========================================================================= */
 .splash-message {
     position: absolute;
     top: 289px;
     left: 0px;
     width: 400px;
-    font: normal normal bold 1.4rem/1.8rem Poppins; /* Fuente más grande */
+    font: normal normal bold 19px/29px Poppins;
     text-align: center;
-    letter-spacing: 1px;
-    transition: opacity 1s ease; /* Transición de fade mejorada */
-    color: var(--color-secondary); /* Color celeste para hacerlo más llamativo */
-    text-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+    letter-spacing: 0px;
+    transition: opacity 1.5s;
+    color: var(--color);
     opacity: 0;
 }
 
@@ -68,15 +54,14 @@ img {
     left: 0px;
     width: 400px;
     text-align: center;
-    transition: opacity 1s ease;
-    font: normal normal normal 0.7rem/0.9rem Poppins; /* Texto más fino */
-    color: rgba(240, 248, 255, 0.7); /* Gris claro semitransparente */
+    transition: opacity 1.5s;
+    font: normal normal normal 9px/13px Poppins;
+    color: var(--color);
     opacity: 0;
 }
 
 .splash-author .author {
-    font: normal normal bold 0.7rem/0.9rem Poppins;
-    color: var(--color-primary); /* Autor en color morado */
+    font: normal normal bold 9px/13px Poppins;
 }
 
 .splash-author.opacity {
@@ -89,53 +74,42 @@ img {
     left: 0px;
     width: 400px;
     text-align: center;
-    transition: opacity 1.5s ease;
-    font: normal normal bold 1.1rem/1.5rem Poppins; /* Tamaño y peso ajustados */
-    color: var(--color-text-light);
+    transition: opacity 1.5s;
+    font: normal normal bold 18px/27px Poppins;
+    color: var(--color);
     opacity: 0;
+}
+
+.download-update {
+    position: absolute;
+    left: 25%;
+    margin-top: 20px;
+    width: 200px;
+    font: normal normal bold 22px / 45px Poppins;
+    color: var(--color);
+    border: 2px solid var(--color);
+    border-radius: 15px;
+    transition: background-color .2s, color .2s;
+}
+
+.download-update:hover {
+    background-color: var(--color);
+    color: var(--background);
+    cursor: pointer;
 }
 
 .message.opacity {
     opacity: 1;
 }
 
-/* ========================================================================= */
-/* BOTÓN DOWNLOAD/UPDATE */
-/* ========================================================================= */
-.download-update {
-    position: absolute;
-    left: 50%; /* Centramos el botón en lugar de 25% */
-    transform: translateX(-50%); /* Ajuste de centrado */
-    margin-top: 20px;
-    width: 200px;
-    font: normal normal bold 1.1rem/2.5rem Poppins; /* Tamaño y altura de línea ajustados */
-    color: var(--color-text-light); 
-    /* Estilo Moderno: Borde fino morado */
-    border: 2px solid var(--color-primary);
-    border-radius: 10px; /* Menos redondeado que 15px */
-    transition: all .3s ease-in-out; 
-    cursor: pointer;
-}
-
-.download-update:hover {
-    /* Efecto de HOVER futurista */
-    background-color: var(--color-primary);
-    color: var(--dark-color);
-    box-shadow: 0 0 15px var(--color-primary);
-}
-
-/* ========================================================================= */
-/* BARRA DE PROGRESO (PROGRESS BAR) */
-/* ========================================================================= */
 .progress {
     position: absolute;
     top: 410px;
-    left: 50%; /* Centramos la barra */
-    transform: translateX(-50%); /* Ajuste de centrado */
-    width: 250px; /* Barra más ancha */
+    left: 106px;
+    width: 189px;
     height: 10px;
     appearance: none;
-    transition: opacity .4s ease; /* Transición más suave */
+    transition: opacity .2s;
     opacity: 0;
 }
 
@@ -144,27 +118,12 @@ img {
 }
 
 .progress::-webkit-progress-bar {
-    /* Fondo de la barra de progreso */
-    background-color: rgba(255, 255, 255, 0.1);
-    border: solid 1px var(--color-primary);
+    background-color: var(--background);
+    border: solid 1px var(--element-color);
     border-radius: 10px;
 }
 
 .progress::-webkit-progress-value {
-    /* Relleno con gradiente frío */
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-    border-radius: 10px;
-    box-shadow: 0 0 8px var(--color-secondary); /* Efecto glow sutil */
-    transition: width 0.4s ease;
-}
-
-/* Ajuste para Firefox (solo si es necesario en tu entorno) */
-.progress {
-    /* Estilo para Firefox */
-    -moz-appearance: none;
-    border: none;
-}
-.progress::-moz-progress-bar {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background-color: var(--element-color);
     border-radius: 10px;
 }

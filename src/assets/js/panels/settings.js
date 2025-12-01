@@ -1,6 +1,6 @@
 /**
  * @author Luuxis
- * Luuxis License v1.0 (voir fichier LICENSE pour les détails en FR/EN)
+ * Luuxis License v1.0 (ver archivo LICENSE para los detalles en ES/EN)
  */
 
 import { changePanel, accountSelect, database, Slider, config, setStatus, popup, appdata, setBackground } from '../utils.js'
@@ -12,12 +12,12 @@ class Settings {
     async init(config) {
         this.config = config;
         this.db = new database();
-        this.navBTN()
-        this.accounts()
-        this.ram()
-        this.javaPath()
-        this.resolution()
-        this.launcher()
+        this.navBTN() // Botones de navegación
+        this.accounts() // Cuentas
+        this.ram() // RAM
+        this.javaPath() // Ruta de Java
+        this.resolution() // Resolución
+        this.launcher() // Opciones del launcher
     }
 
     navBTN() {
@@ -53,8 +53,8 @@ class Settings {
                 let id = e.target.id
                 if (e.target.classList.contains('account')) {
                     popupAccount.openPopup({
-                        title: 'Connexion',
-                        content: 'Veuillez patienter...',
+                        title: 'Conexión',
+                        content: 'Por favor, espere...',
                         color: 'var(--color)'
                     })
 
@@ -72,8 +72,8 @@ class Settings {
 
                 if (e.target.classList.contains("delete-profile")) {
                     popupAccount.openPopup({
-                        title: 'Connexion',
-                        content: 'Veuillez patienter...',
+                        title: 'Conexión',
+                        content: 'Por favor, espere...',
                         color: 'var(--color)'
                     })
                     await this.db.deleteData('accounts', id);
@@ -90,7 +90,7 @@ class Settings {
                         configClient.account_selected = allAccounts[0].ID
                         accountSelect(allAccounts[0]);
                         let newInstanceSelect = await this.setInstance(allAccounts[0]);
-                        configClient.instance_selct = newInstanceSelect.instance_selct
+                        configClient.instance_select = newInstanceSelect.instance_select
                         return await this.db.updateData('configClient', configClient);
                     }
                 }
@@ -104,7 +104,7 @@ class Settings {
 
     async setInstance(auth) {
         let configClient = await this.db.readData('configClient')
-        let instanceSelect = configClient.instance_selct
+        let instanceSelect = configClient.instance_select
         let instancesList = await config.getInstanceList()
 
         for (let instance of instancesList) {
@@ -113,7 +113,7 @@ class Settings {
                 if (whitelist !== auth.name) {
                     if (instance.name == instanceSelect) {
                         let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
-                        configClient.instance_selct = newInstanceSelect.name
+                        configClient.instance_select = newInstanceSelect.name
                         await setStatus(newInstanceSelect.status)
                     }
                 }
@@ -127,8 +127,8 @@ class Settings {
         let totalMem = Math.trunc(os.totalmem() / 1073741824 * 10) / 10;
         let freeMem = Math.trunc(os.freemem() / 1073741824 * 10) / 10;
 
-        document.getElementById("total-ram").textContent = `${totalMem} Go`;
-        document.getElementById("free-ram").textContent = `${freeMem} Go`;
+        document.getElementById("total-ram").textContent = `${totalMem} Gb`;
+        document.getElementById("free-ram").textContent = `${freeMem} Gb`;
 
         let sliderDiv = document.querySelector(".memory-slider");
         sliderDiv.setAttribute("max", Math.trunc((80 * totalMem) / 100));
@@ -149,13 +149,13 @@ class Settings {
         let minSpan = document.querySelector(".slider-touch-left span");
         let maxSpan = document.querySelector(".slider-touch-right span");
 
-        minSpan.setAttribute("value", `${ram.ramMin} Go`);
-        maxSpan.setAttribute("value", `${ram.ramMax} Go`);
+        minSpan.setAttribute("value", `${ram.ramMin} Gb`);
+        maxSpan.setAttribute("value", `${ram.ramMax} Gb`);
 
         slider.on("change", async (min, max) => {
             let config = await this.db.readData('configClient');
-            minSpan.setAttribute("value", `${min} Go`);
-            maxSpan.setAttribute("value", `${max} Go`);
+            minSpan.setAttribute("value", `${min} Gb`);
+            maxSpan.setAttribute("value", `${max} Gb`);
             config.java_config.java_memory = { min: min, max: max };
             this.db.updateData('configClient', config);
         });
@@ -166,7 +166,7 @@ class Settings {
         javaPathText.textContent = `${await appdata()}/${process.platform == 'darwin' ? this.config.dataDirectory : `.${this.config.dataDirectory}`}/runtime`;
 
         let configClient = await this.db.readData('configClient')
-        let javaPath = configClient?.java_config?.java_path || 'Utiliser la version de java livre avec le launcher';
+        let javaPath = configClient?.java_config?.java_path || 'Usar la versión de Java incluida con el launcher';
         let javaPathInputTxt = document.querySelector(".java-path-input-text");
         let javaPathInputFile = document.querySelector(".java-path-input-file");
         javaPathInputTxt.value = javaPath;
@@ -187,12 +187,12 @@ class Settings {
                 javaPathInputTxt.value = file;
                 configClient.java_config.java_path = file
                 await this.db.updateData('configClient', configClient);
-            } else alert("Le nom du fichier doit être java ou javaw");
+            } else alert("El nombre del archivo debe ser java o javaw");
         });
 
         document.querySelector(".java-path-reset").addEventListener("click", async () => {
             let configClient = await this.db.readData('configClient')
-            javaPathInputTxt.value = 'Utiliser la version de java livre avec le launcher';
+            javaPathInputTxt.value = 'Usar la versión de Java incluida con el launcher';
             configClient.java_config.java_path = null
             await this.db.updateData('configClient', configClient);
         });
