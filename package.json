@@ -1,7 +1,7 @@
 {
     "name": "Enena-Launcher",
     "preductname": "Enena Launcher",
-    "version": "0.0.9",
+    "version": "0.9.9",
     "description": "Launcher oficial de Enena Studios",
     "main": "src/app.js",
     "author": {
