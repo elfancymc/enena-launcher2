@@ -1,7 +1,7 @@
 {
     "name": "Enena-Launcher",
     "preductname": "Enena Launcher",
-    "version": "0.9.9",
+    "version": "9.9.9",
     "description": "Launcher oficial de Enena Studios",
     "main": "src/app.js",
     "author": {
@@ -22,6 +22,7 @@
         "ignore": "**/test"
     },
     "dependencies": {
+        "discord-rpc": "^4.0.1",
         "electron-updater": "^6.6.2",
         "install": "^0.13.0",
         "minecraft-java-core": "^4.2.3",
